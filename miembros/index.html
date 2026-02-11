@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Miembros — Misión Jesús Príncipe de Paz</title>
+    <meta name="description"
+        content="Portal de recursos y documentos para miembros y ministerios de la Misión Bautista Jesús Príncipe de Paz en Saltillo, Coahuila.">
+    <link rel="icon" href="../calendar_favicon.png" type="image/png">
+    <link rel="stylesheet" href="../styles/shared.css">
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
+    <style>
+        /* ============================================
+           Members Portal - Page Styles
+           ============================================ */
+
+        /* ---- Hero Banner ---- */
+        .members-hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #1a3a5c 50%, var(--color-primary-light) 100%);
+            padding: 4rem 0 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .members-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(var(--color-accent-rgb), 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .members-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(134, 164, 193, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-badge .material-icons-round {
+            font-size: 16px;
+        }
+
+        .members-hero h1 {
+            color: white;
+            font-size: 2.75rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.75rem;
+            line-height: 1.15;
+        }
+
+        .members-hero p {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: var(--font-size-lg);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ---- Search Bar ---- */
+        .search-section {
+            padding: 0;
+            margin-top: -1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-wrapper {
+            max-width: 640px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-wrapper .material-icons-round {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-muted);
+            font-size: 22px;
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.25rem 1rem 3.25rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            color: var(--color-text);
+            background: white;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-base);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        .search-input:focus {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-xl), 0 0 0 3px rgba(var(--color-accent-rgb), 0.1);
+        }
+
+        /* ---- Category Filter Tabs ---- */
+        .filter-section {
+            padding: 2.5rem 0 1rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1.15rem;
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-full);
+            background: white;
+            color: var(--color-text-secondary);
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            user-select: none;
+        }
+
+        .filter-tab .material-icons-round {
+            font-size: 18px;
+        }
+
+        .filter-tab:hover {
+            border-color: var(--color-accent-light);
+            color: var(--color-accent);
+            background: rgba(var(--color-accent-rgb), 0.04);
+        }
+
+        .filter-tab.active {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+            box-shadow: 0 2px 8px rgba(var(--color-accent-rgb), 0.3);
+        }
+
+        /* ---- Ministry Sections ---- */
+        .ministries-content {
+            padding: 1.5rem 0 4rem;
+        }
+
+        .ministry-section {
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .ministry-section.hidden {
+            display: none;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ministry-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--color-border-light);
+        }
+
+        .ministry-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .ministry-icon .material-icons-round {
+            font-size: 26px;
+            color: white;
+        }
+
+        .ministry-icon.blue {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .ministry-icon.teal {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+        }
+
+        .ministry-icon.purple {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+
+        .ministry-icon.orange {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+
+        .ministry-icon.red {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .ministry-icon.green {
+            background: linear-gradient(135deg, #27ae60, #219a52);
+        }
+
+        .ministry-icon.indigo {
+            background: linear-gradient(135deg, #5c6bc0, #3f51b5);
+        }
+
+        .ministry-icon.pink {
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+        }
+
+        .ministry-title-group h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            text-align: left;
+            margin-bottom: 0.15rem;
+        }
+
+        .ministry-title-group p {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+        }
+
+        /* ---- Resource Cards Grid ---- */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .resource-card {
+            background: white;
+            border: 1px solid var(--color-border-light);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--color-accent);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .resource-card:hover {
+            border-color: rgba(var(--color-accent-rgb), 0.3);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .resource-card:hover::before {
+            opacity: 1;
+        }
+
+        .resource-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .resource-card-icon .material-icons-round {
+            font-size: 22px;
+        }
+
+        /* File type icon colors */
+        .file-drive {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .file-drive .material-icons-round {
+            color: #2e7d32;
+        }
+
+        .file-doc {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .file-doc .material-icons-round {
+            color: #1565c0;
+        }
+
+        .file-sheet {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .file-sheet .material-icons-round {
+            color: #2e7d32;
+        }
+
+        .file-slides {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .file-slides .material-icons-round {
+            color: #e65100;
+        }
+
+        .file-pdf {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .file-pdf .material-icons-round {
+            color: #c62828;
+        }
+
+        .file-video {
+            background: #fce4ec;
+            color: #ad1457;
+        }
+
+        .file-video .material-icons-round {
+            color: #ad1457;
+        }
+
+        .file-link {
+            background: #e8eaf6;
+            color: #283593;
+        }
+
+        .file-link .material-icons-round {
+            color: #283593;
+        }
+
+        .file-form {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        .file-form .material-icons-round {
+            color: #6a1b9a;
+        }
+
+        .file-calendar {
+            background: #e0f2f1;
+            color: #00695c;
+        }
+
+        .file-calendar .material-icons-round {
+            color: #00695c;
+        }
+
+        .resource-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .resource-card-info h3 {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.2rem;
+            line-height: 1.3;
+        }
+
+        .resource-card-info p {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+            line-height: 1.4;
+        }
+
+        .resource-card-arrow {
+            color: var(--color-text-muted);
+            opacity: 0;
+            transition: all var(--transition-base);
+            flex-shrink: 0;
+            align-self: center;
+        }
+
+        .resource-card-arrow .material-icons-round {
+            font-size: 18px;
+        }
+
+        .resource-card:hover .resource-card-arrow {
+            opacity: 1;
+            color: var(--color-accent);
+            transform: translateX(2px);
+        }
+
+        /* ---- Inline Tag/Badge ---- */
+        .resource-tag {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.35rem;
+        }
+
+        .tag-drive {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tag-doc {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .tag-sheet {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tag-form {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        .tag-link {
+            background: #e8eaf6;
+            color: #283593;
+        }
+
+        /* ---- Quick Stats Bar ---- */
+        .stats-bar {
+            background: var(--color-bg-alt);
+            border-top: 1px solid var(--color-border-light);
+            border-bottom: 1px solid var(--color-border-light);
+            padding: 1.25rem 0;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: var(--font-size-2xl);
+            font-weight: 800;
+            color: var(--color-accent);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        /* ---- Empty Section State ---- */
+        .empty-state {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 1.75rem;
+            background: var(--color-bg-alt);
+            border: 1.5px dashed var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text-muted);
+        }
+
+        .empty-state .material-icons-round {
+            font-size: 28px;
+            color: var(--color-border);
+        }
+
+        .empty-state p {
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+        }
+
+        /* ---- No Results State ---- */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        .no-results .material-icons-round {
+            font-size: 64px;
+            color: var(--color-border);
+            margin-bottom: 1rem;
+        }
+
+        .no-results h3 {
+            font-size: var(--font-size-xl);
+            color: var(--color-text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .no-results p {
+            color: var(--color-text-muted);
+        }
+
+        /* ---- Mobile Menu Toggle ---- */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-toggle .material-icons-round {
+            font-size: 28px;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 768px) {
+            .members-hero {
+                padding: 3rem 0 2.5rem;
+            }
+
+            .members-hero h1 {
+                font-size: 2rem;
+            }
+
+            .members-hero p {
+                font-size: var(--font-size-base);
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                gap: 1.5rem;
+            }
+
+            .filter-tabs {
+                padding: 0 0.5rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .jpp-header .nav-links {
+                display: none;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--color-primary);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+                box-shadow: var(--shadow-lg);
+            }
+
+            .jpp-header .nav-links.open {
+                display: flex;
+            }
+
+            .jpp-header .nav-links a {
+                padding: 0.75rem 1rem;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .members-hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .filter-tab span:not(.material-icons-round) {
+                display: none;
+            }
+
+            .filter-tab {
+                padding: 0.5rem 0.75rem;
+            }
+
+            .ministry-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .ministry-icon .material-icons-round {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="jpp-header">
+        <nav>
+            <a href="../" class="logo-container">
+                <img src="../logo.png" alt="Logo Jesús Príncipe de Paz" class="logo">
+                <div class="church-name">
+                    <h1>Jesús Príncipe de Paz</h1>
+                </div>
+            </a>
+            <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')"
+                aria-label="Abrir menú">
+                <span class="material-icons-round">menu</span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../">Inicio</a></li>
+                <li><a href="./" class="active">Miembros</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="members-hero">
+        <div class="container hero-inner">
+            <div class="hero-badge">
+                <span class="material-icons-round">verified_user</span>
+                Portal de Miembros
+            </div>
+            <h1>Recursos y Ministerios</h1>
+            <p>Accede a los documentos, enlaces y recursos organizados de nuestra iglesia.</p>
+        </div>
+    </section>
+
+    <!-- Search Bar -->
+    <div class="search-section container">
+        <div class="search-wrapper">
+            <span class="material-icons-round">search</span>
+            <input type="text" class="search-input" id="searchInput"
+                placeholder="Buscar recursos, ministerios, documentos..." oninput="filterResources()">
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" id="statMinistries">3</div>
+                <div class="stat-label">Ministerios</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statComites">1</div>
+                <div class="stat-label">Comités</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statUniones">3</div>
+                <div class="stat-label">Uniones</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statResources">5</div>
+                <div class="stat-label">Recursos</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-section container">
+        <div class="filter-tabs">
+            <button class="filter-tab" data-category="all" onclick="setFilter(this)">
+                <span class="material-icons-round">apps</span>
+                <span>Todos</span>
+            </button>
+            <button class="filter-tab active" data-category="ministerio" onclick="setFilter(this)">
+                <span class="material-icons-round">church</span>
+                <span>Ministerios</span>
+            </button>
+            <button class="filter-tab" data-category="comite" onclick="setFilter(this)">
+                <span class="material-icons-round">groups</span>
+                <span>Comités</span>
+            </button>
+            <button class="filter-tab" data-category="union" onclick="setFilter(this)">
+                <span class="material-icons-round">diversity_3</span>
+                <span>Uniones</span>
+            </button>
+
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="ministries-content container">
+
+        <!-- ========== MINISTERIO DE DIRECCIÓN Y PLANEACIÓN ========== -->
+        <div class="ministry-section" data-category="ministerio"
+            data-keywords="dirección planeación servicios liturgia orden programa culto eventos anuncios">
+            <div class="ministry-header">
+                <div class="ministry-icon blue">
+                    <span class="material-icons-round">auto_stories</span>
+                </div>
+                <div class="ministry-title-group">
+                    <h2>Ministerio de Dirección y Planeación</h2>
+                    <p>Coordinación, planeación y dirección de los servicios y eventos de la iglesia</p>
+                </div>
+            </div>
+            <div class="resources-grid">
+                <a href="https://principedepaz.whiteweb.mx/" class="resource-card" target="_blank">
+                    <div class="resource-card-icon file-link">
+                        <span class="material-icons-round">language</span>
+                    </div>
+                    <div class="resource-card-info">
+                        <h3>Anuncios en la Página Oficial</h3>
+                        <p>Página principal de la Misión con información y anuncios generales</p>
+                        <span class="resource-tag tag-link">Sitio Web</span>
+                    </div>
+                    <div class="resource-card-arrow">
+                        <span class="material-icons-round">open_in_new</span>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/spreadsheets/d/1XoL5Yh08pvxZhVkAGbk7LbIH_2Gxn-nQs5XfNPikpT8/edit?gid=0#gid=0"
+                    class="resource-card" target="_blank">
+                    <div class="resource-card-icon file-sheet">
+                        <span class="material-icons-round">event_note</span>
+                    </div>
+                    <div class="resource-card-info">
+                        <h3>MBJPP — Eventos</h3>
+                        <p>Hoja de eventos y actividades programadas de la misión</p>
+                        <span class="resource-tag tag-sheet">Google Sheets</span>
+                    </div>
+                    <div class="resource-card-arrow">
+                        <span class="material-icons-round">open_in_new</span>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/spreadsheets/d/15gl65hh9K-sf_0eo9eFDld31c7but3Y4ojczVkkkos8/edit?gid=1700328477#gid=1700328477"
+                    class="resource-card" target="_blank">
+                    <div class="resource-card-icon file-sheet">
+                        <span class="material-icons-round">table_chart</span>
+                    </div>
+                    <div class="resource-card-info">
+                        <h3>MBJPP — Plan de Dirección de Servicios</h3>
+                        <p>Plan y asignaciones para la dirección de los cultos</p>
+                        <span class="resource-tag tag-sheet">Google Sheets</span>
+                    </div>
+                    <div class="resource-card-arrow">
+                        <span class="material-icons-round">open_in_new</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ========== MINISTERIO DE MÚSICA Y ALABANZA ========== -->
+        <div class="ministry-section" data-category="ministerio"
+            data-keywords="música alabanza adoración cantos himnos coros catálogo compilado">
+            <div class="ministry-header">
+                <div class="ministry-icon purple">
+                    <span class="material-icons-round">music_note</span>
+                </div>
+                <div class="ministry-title-group">
+                    <h2>Ministerio de Música y Alabanza</h2>
+                    <p>Alabanza, adoración y recursos musicales para la iglesia</p>
+                </div>
+            </div>
+            <div class="resources-grid">
+                <a href="https://docs.google.com/spreadsheets/d/1a2IDBUQk22A36rMZ-T3Ghj-i_P5mD7oAo4KxHb9trqA/edit?usp=drive_web&ouid=111370028134665902682"
+                    class="resource-card" target="_blank">
+                    <div class="resource-card-icon file-sheet">
+                        <span class="material-icons-round">queue_music</span>
+                    </div>
+                    <div class="resource-card-info">
+                        <h3>MBJPPP — Catálogo de Cantos (Himnos & Coros)</h3>
+                        <p>Listado completo de himnos y coros disponibles para los servicios</p>
+                        <span class="resource-tag tag-sheet">Google Sheets</span>
+                    </div>
+                    <div class="resource-card-arrow">
+                        <span class="material-icons-round">open_in_new</span>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/document/d/1AuUHjApTiVte1QGCzTBl5N8jSLGvLbWDU4m4YDOOxA4/edit?tab=t.0#heading=h.b5en6kcmyy95"
+                    class="resource-card" target="_blank">
+                    <div class="resource-card-icon file-doc">
+                        <span class="material-icons-round">lyrics</span>
+                    </div>
+                    <div class="resource-card-info">
+                        <h3>Compilado de Coros</h3>
+                        <p>Documento con letras y compilación de coros de la congregación</p>
+                        <span class="resource-tag tag-doc">Google Docs</span>
+                    </div>
+                    <div class="resource-card-arrow">
+                        <span class="material-icons-round">open_in_new</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ========== MINISTERIO DE TESORERÍA ========== -->
+        <div class="ministry-section" data-category="ministerio"
+            data-keywords="tesorería finanzas presupuesto diezmos ofrendas dinero contabilidad">
+            <div class="ministry-header">
+                <div class="ministry-icon orange">
+                    <span class="material-icons-round">account_balance</span>
+                </div>
+                <div class="ministry-title-group">
+                    <h2>Ministerio de Tesorería</h2>
+                    <p>Administración financiera y recursos de tesorería</p>
+                </div>
+            </div>
+            <div class="empty-state">
+                <span class="material-icons-round">hourglass_empty</span>
+                <p>Aún no hay recursos disponibles para este ministerio. Los documentos se irán agregando conforme se
+                    generen.</p>
+            </div>
+        </div>
+
+        <!-- ========== COMITÉ DE FINANZAS ========== -->
+        <div class="ministry-section" data-category="comite" data-keywords="comité finanzas presupuesto administración">
+            <div class="ministry-header">
+                <div class="ministry-icon teal">
+                    <span class="material-icons-round">savings</span>
+                </div>
+                <div class="ministry-title-group">
+                    <h2>Comité de Finanzas</h2>
+                    <p>Supervisión y planeación financiera de la iglesia</p>
+                </div>
+            </div>
+            <div class="empty-state">
+                <span class="material-icons-round">hourglass_empty</span>
+                <p>Aún no hay recursos disponibles para este comité. Los documentos se irán agregando conforme se
+                    generen.</p>
+            </div>
+        </div>
+
+        <!-- ========== UNIÓN DE DAMAS ========== -->
+        <div class="ministry-section" data-category="union"
+            data-keywords="damas mujeres unión femenil femenino señoras">
+            <div class="ministry-header">
+                <div class="ministry-icon pink">
+                    <span class="material-icons-round">favorite</span>
+                </div>
+                <div class="ministry-title-group">
+                    <h2>Unión de Damas</h2>
+                    <p>Recursos, estudios y actividades de la unión femenil</p>
+                </div>
+            </div>
+            <div class="empty-state">
+                <span class="material-icons-round">hourglass_empty</span>
+                <p>Aún no hay recursos disponibles para esta unión. Los documentos se irán agregando conforme se
+                    generen.</p>
+            </div>
+        </div>
+
+        <!-- ========== UNIÓN DE JÓVENES ========== -->
+        <div class="ministry-section" data-category="union"
+            data-keywords="jóvenes juventud unión joven reunión juvenil">
+            <div class="ministry-header">
+                <div class="ministry-icon green">
+                    <span class="material-icons-round">emoji_people</span>
+                </div>
+                <div class="ministry-title-group">
+                    <h2>Unión de Jóvenes</h2>
+                    <p>Actividades, recursos y organización del grupo juvenil</p>
+                </div>
+            </div>
+            <div class="empty-state">
+                <span class="material-icons-round">hourglass_empty</span>
+                <p>Aún no hay recursos disponibles para esta unión. Los documentos se irán agregando conforme se
+                    generen.</p>
+            </div>
+        </div>
+
+        <!-- ========== UNIÓN DE VARONES ========== -->
+        <div class="ministry-section" data-category="union"
+            data-keywords="varones hombres unión varonil masculino caballeros">
+            <div class="ministry-header">
+                <div class="ministry-icon indigo">
+                    <span class="material-icons-round">shield</span>
+                </div>
+                <div class="ministry-title-group">
+                    <h2>Unión de Varones</h2>
+                    <p>Recursos y actividades de la unión varonil</p>
+                </div>
+            </div>
+            <div class="empty-state">
+                <span class="material-icons-round">hourglass_empty</span>
+                <p>Aún no hay recursos disponibles para esta unión. Los documentos se irán agregando conforme se
+                    generen.</p>
+            </div>
+        </div>
+
+        <!-- No Results State -->
+        <div class="no-results" id="noResults">
+            <span class="material-icons-round">search_off</span>
+            <h3>No se encontraron resultados</h3>
+            <p>Intenta con otro término de búsqueda o selecciona una categoría diferente.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="jpp-footer">
+        <div class="container">
+            <p><strong>Misión Jesús Príncipe de Paz</strong></p>
+            <p>Andrómeda 436, Cd las Torres, 25110 Saltillo, Coahuila</p>
+            <p>&copy; 2025 Jesús Príncipe de Paz. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // Members Portal - Interactive Logic
+        // ============================================
+
+        let currentFilter = 'ministerio';
+
+        /**
+         * Set the active category filter
+         */
+        function setFilter(button) {
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            button.classList.add('active');
+            currentFilter = button.dataset.category;
+            applyFilters();
+        }
+
+        /**
+         * Filter resources based on search input
+         */
+        function filterResources() {
+            applyFilters();
+        }
+
+        /**
+         * Apply both category and search filters
+         */
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const sections = document.querySelectorAll('.ministry-section');
+            let visibleCount = 0;
+
+            sections.forEach((section, index) => {
+                const category = section.dataset.category;
+                const keywords = (section.dataset.keywords || '').toLowerCase();
+                const textContent = section.textContent.toLowerCase();
+
+                // Check category filter
+                const matchesCategory = currentFilter === 'all' || category === currentFilter;
+
+                // Check search filter
+                const matchesSearch = !searchTerm ||
+                    textContent.includes(searchTerm) ||
+                    keywords.includes(searchTerm);
+
+                if (matchesCategory && matchesSearch) {
+                    section.classList.remove('hidden');
+                    section.style.animationDelay = `${visibleCount * 0.08}s`;
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            // Show/hide no results message
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.classList.add('visible');
+            } else {
+                noResults.classList.remove('visible');
+            }
+        }
+
+        // ---- Smooth scroll for anchor links ----
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ---- Apply initial filter on page load ----
+        applyFilters();
+
+        // ---- Close mobile menu on link click ----
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('open');
+            });
+        });
+    </script>
+</body>
+
+</html>
