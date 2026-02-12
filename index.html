@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión Jesús Príncipe de Paz</title>
-    <link rel="icon" href="calendar_favicon.png" type="image/png">
+    <link rel="icon" href="logo.png" type="image/png">
     <style>
         * {
             margin: 0;
@@ -55,6 +55,12 @@
             font-weight: 600;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -69,6 +75,82 @@
 
         .nav-links a:hover {
             opacity: 0.8;
+        }
+
+        .nav-social {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-social a:hover {
+            background: #1877f2;
+            border-color: #1877f2;
+            transform: scale(1.1);
+            box-shadow: 0 0 12px rgba(24, 119, 242, 0.4);
+        }
+
+        .nav-social a svg {
+            width: 16px;
+            height: 16px;
+            fill: white;
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hamburger Menu Button - hidden on desktop */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 2px;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
         }
 
         /* Hero Section */
@@ -177,6 +259,15 @@
             display: block;
         }
 
+        /* Desktop: show month view, hide agenda */
+        .calendar-desktop {
+            display: block;
+        }
+
+        .calendar-mobile {
+            display: none;
+        }
+
         /* Location Section */
         .location-content {
             display: grid;
@@ -218,27 +309,199 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
+
         /* Footer */
         footer {
-            background: #2c3e50;
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 50%, #1a252f 100%);
             color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem 2rem;
         }
 
-        footer p {
-            margin-bottom: 0.5rem;
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
         }
 
-        /* Responsive */
+        .footer-info p {
+            margin-bottom: 0.4rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .footer-info p strong {
+            color: white;
+        }
+
+        .footer-social {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-social-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footer-social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-social-icons a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .footer-social-icons a:hover {
+            background: #1877f2;
+            border-color: #1877f2;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+        }
+
+        .footer-social-icons a svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-social-icons a:hover svg {
+            transform: scale(1.1);
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Responsive - Hamburger menu */
         @media (max-width: 768px) {
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
+            header {
+                padding: 0.75rem 0;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                padding: 0 1rem;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .logo {
+                height: 36px;
+            }
+
+            .logo-container {
+                gap: 0.6rem;
             }
 
             .church-name h1 {
-                font-size: 1.2rem;
+                font-size: 1rem;
+                line-height: 1.3;
+            }
+
+            .nav-right {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                gap: 0;
+                padding-top: 0.75rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                margin-top: 0.5rem;
+                overflow: hidden;
+                max-height: 0;
+                opacity: 0;
+                transition: max-height 0.35s ease, opacity 0.3s ease, padding-top 0.3s ease, margin-top 0.3s ease;
+                padding-top: 0;
+                margin-top: 0;
+            }
+
+            .nav-right.open {
+                display: flex;
+                max-height: 300px;
+                opacity: 1;
+                padding-top: 0.75rem;
+                margin-top: 0.5rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                width: 100%;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.6rem 0;
+                font-size: 0.95rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                transition: background 0.2s ease, opacity 0.3s;
+            }
+
+            .nav-links a:hover {
+                background: rgba(255, 255, 255, 0.05);
+                opacity: 1;
+            }
+
+            .nav-divider {
+                display: none;
+            }
+
+            .nav-social {
+                padding: 0.75rem 0 0.25rem;
+            }
+
+            .nav-social a {
+                width: 36px;
+                height: 36px;
+            }
+
+            .nav-social a svg {
+                width: 18px;
+                height: 18px;
             }
 
             .hero-content h2 {
@@ -265,6 +528,26 @@
             .calendar-wrapper iframe {
                 height: 500px;
             }
+
+            /* Mobile: show agenda view, hide month grid */
+            .calendar-desktop {
+                display: none;
+            }
+
+            .calendar-mobile {
+                display: block;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .church-name h1 {
+                font-size: 0.85rem;
+            }
+
+            .hero-content h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -279,14 +562,32 @@
                     <h1>Misión Bautista Jesús Príncipe de Paz</h1>
                 </div>
             </div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#calendario">Calendario</a></li>
-                <li><a href="#ubicacion">Ubicación</a></li>
-                <!-- Preparado para futuras páginas -->
-                <!-- <li><a href="ministerios.html">Ministerios</a></li> -->
-                <!-- <li><a href="galeria.html">Galería</a></li> -->
-            </ul>
+            <button class="hamburger" id="hamburger-btn" aria-label="Menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#calendario">Calendario</a></li>
+                    <li><a href="#ubicacion">Ubicación</a></li>
+                    <!-- Preparado para futuras páginas -->
+                    <!-- <li><a href="ministerios.html">Ministerios</a></li> -->
+                    <!-- <li><a href="galeria.html">Galería</a></li> -->
+                </ul>
+                <div class="nav-divider"></div>
+                <div class="nav-social">
+                    <a href="https://www.facebook.com/profile.php?id=100066764123458" target="_blank"
+                        rel="noopener noreferrer" aria-label="Facebook" id="nav-facebook">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <!-- Más redes aquí -->
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -333,8 +634,12 @@
                         <div class="calendar-header">
                             <h3>📅 Próximos Eventos y Servicios</h3>
                         </div>
-                        <iframe
+                        <!-- Desktop: Month grid view -->
+                        <iframe class="calendar-desktop"
                             src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FMonterrey&bgcolor=%23ffffff&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0&src=377c1d5106d94816f981c25c175b345ac15458931d0cd0ef9f2d2f39ee6b2370%40group.calendar.google.com&color=%23039BE5"></iframe>
+                        <!-- Mobile: Agenda list view (more readable) -->
+                        <iframe class="calendar-mobile"
+                            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FMonterrey&bgcolor=%23ffffff&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&mode=AGENDA&src=377c1d5106d94816f981c25c175b345ac15458931d0cd0ef9f2d2f39ee6b2370%40group.calendar.google.com&color=%23039BE5"></iframe>
                     </div>
                 </div>
             </div>
@@ -367,14 +672,54 @@
         </div>
     </section>
 
+
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p><strong>Misión Jesús Príncipe de Paz</strong></p>
-            <p>Andrómeda 436, Cd las Torres, 25110 Saltillo, Coahuila</p>
-            <p>&copy; 2025 Jesús Príncipe de Paz. Todos los derechos reservados.</p>
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p><strong>Misión Jesús Príncipe de Paz</strong></p>
+                    <p>Andrómeda 436, Cd las Torres, 25110 Saltillo, Coahuila</p>
+                </div>
+
+                <div class="footer-social">
+                    <span class="footer-social-label">Síguenos</span>
+                    <div class="footer-social-icons">
+                        <a href="https://www.facebook.com/profile.php?id=100066764123458" target="_blank"
+                            rel="noopener noreferrer" aria-label="Facebook" id="footer-social-facebook">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <!-- Más redes aquí -->
+                    </div>
+                </div>
+
+                <div class="footer-divider"></div>
+                <p class="footer-copyright">&copy; 2025 Jesús Príncipe de Paz. Todos los derechos reservados.</p>
+            </div>
         </div>
     </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger-btn');
+        const navRight = document.querySelector('.nav-right');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navRight.classList.toggle('open');
+        });
+
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navRight.classList.remove('open');
+            });
+        });
+    </script>
 </body>
 
 </html>
