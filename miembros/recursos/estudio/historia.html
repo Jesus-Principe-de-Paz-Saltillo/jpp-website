@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Línea del Tiempo Histórica | Misión Jesús Príncipe de Paz</title>
+    <meta name="description"
+        content="Hitos fundamentales en la historia de la Iglesia, la Reforma y la transmisión de la Biblia a través de los siglos.">
+    <link rel="icon" href="../../../logo.png" type="image/png">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Shared design system (header, footer, tokens, utilities) -->
+    <link rel="stylesheet" href="../../../styles/shared.css">
+
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="historia.css">
+</head>
+
+<body>
+    <!-- Encabezado para Impresión (oculto en pantalla) -->
+    <div class="print-header">
+        <div class="print-header-text">
+            <h1>Línea del Tiempo Histórica</h1>
+            <p>Hitos Históricos y la Transmisión de la Biblia</p>
+        </div>
+        <!-- Contenedor del QR (generado por JS) -->
+        <div class="print-qr-container" id="qr-container">
+            <img id="qr-code-img" src="" alt="Código QR">
+            <span>Visitar Página</span>
+        </div>
+    </div>
+
+    <!-- Header (reutiliza las clases estándar de shared.css) -->
+    <header class="jpp-header">
+        <nav>
+            <a href="../../../index.html" class="logo-container">
+                <img src="../../../logo.png" alt="Logo Jesús Príncipe de Paz" class="logo"
+                    onerror="this.src=''; this.alt='Iglesia'">
+                <div class="church-name">
+                    <h1>Misión Jesús Príncipe de Paz</h1>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="../../index.html">← Portal de Miembros</a></li>
+                <li><a href="../../../index.html">Inicio</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero / Banner (estandarizado con .page-hero de shared.css) -->
+    <section class="page-hero">
+        <div class="container hero-inner">
+            <div class="hero-badge">
+                <span>📜</span>
+                Recursos de Estudio
+            </div>
+            <h1>Línea del Tiempo Histórica</h1>
+            <p>Hitos fundamentales en la historia de la Iglesia, la Reforma y la transmisión de la Biblia a través de
+                los
+                siglos.</p>
+        </div>
+    </section>
+
+    <!-- Contenedor de Eras (renderizado por JS) -->
+    <div id="eras-container">
+        <!-- Rendered via historia.js -->
+    </div>
+
+    <!-- Botón de Impresión -->
+    <button class="print-btn" onclick="window.print()" title="Imprimir o Guardar como PDF">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        Imprimir Línea
+    </button>
+
+    <!-- Modal para ver detalles del evento -->
+    <div class="modal-overlay" id="event-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-modal" aria-label="Cerrar modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+            <img class="modal-image" id="modal-img" src="" alt="Evento Histórico" onerror="this.style.display='none'">
+            <div class="modal-body">
+                <div class="modal-header-info">
+                    <span class="modal-year" id="modal-year"></span>
+                </div>
+                <h3 class="modal-title" id="modal-title"></h3>
+                <div class="modal-description" id="modal-desc"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Jesús Príncipe de Paz. Todos los derechos reservados.</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.6;">Material de estudio exclusivo.</p>
+    </footer>
+
+    <!-- Page logic -->
+    <script src="historia.js"></script>
+</body>
+
+</html>

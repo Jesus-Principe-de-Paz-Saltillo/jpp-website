@@ -1,0 +1,1087 @@
+/* ============================================================
+   historia.css — Línea del Tiempo Histórica
+   Misión Bautista Jesús Príncipe de Paz
+   ============================================================ */
+
+/* ---- Shared design tokens imported from shared.css ---- */
+/* (shared.css is imported via <link> in historia.html)    */
+
+/* -------------------------------------- */
+/* Page-specific CSS Variables            */
+/* -------------------------------------- */
+:root {
+    --primary: #2c3e50;
+    --primary-light: #34495e;
+    --primary-dark: #1a252f;
+    --secondary: #3498db;
+    --secondary-hover: #2980b9;
+    --accent: #86a4c1;
+    --bg-color: #f8f9fa;
+    --text: #2d3748;
+    --text-light: #718096;
+    --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* -------------------------------------- */
+/* Body                                   */
+/* -------------------------------------- */
+body {
+    background-color: var(--primary-dark);
+    color: var(--text);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* -------------------------------------- */
+/* Header — uses .jpp-header from shared  */
+/* -------------------------------------- */
+/* Override logo font-family for this page */
+.jpp-header .church-name h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Hero: now uses .page-hero from shared.css — no local overrides needed */
+
+/* ============================================================
+   TAG SYSTEM — Legend, filter chips, card accents, tag pills
+   ============================================================ */
+
+/* ── Tag colour tokens ─────────────────────────────────────── */
+:root {
+    --tag-biblia-color:   #b45309;
+    --tag-biblia-bg:      #fef3c7;
+    --tag-biblia-border:  #f59e0b;
+
+    --tag-doctrina-color: #6d28d9;
+    --tag-doctrina-bg:    #ede9fe;
+    --tag-doctrina-border:#8b5cf6;
+
+    --tag-historia-color: #065f46;
+    --tag-historia-bg:    #d1fae5;
+    --tag-historia-border:#10b981;
+}
+
+/* ── Legend bar ─────────────────────────── */
+.tag-legend {
+    background: rgba(15, 25, 35, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.9rem 2rem;
+    position: sticky;
+    top: 70px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.tag-legend__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* ── Super Chips (Combined Highlight + Filter) ─ */
+.super-chip {
+    display: flex;
+    align-items: stretch;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+/* Left side: Filter toggle */
+.sc-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.8rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease;
+}
+.sc-filter:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+.sc-filter .filter-solid { display: none; }
+.sc-filter .filter-outline { display: block; }
+
+.sc-filter.active .filter-solid { display: block; }
+.sc-filter.active .filter-outline { display: none; }
+
+/* Right side: Highlight toggle (Text) */
+.sc-highlight {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+.sc-highlight:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+}
+
+/* Filter Active state (Modifies chip border and funnel color) */
+.super-chip.is-filtered-biblia { border-color: var(--tag-biblia-border); box-shadow: 0 0 8px rgba(245,158,11,0.25); }
+.super-chip.is-filtered-biblia .sc-filter.active { color: #fcd34d; opacity: 0.9;}
+
+.super-chip.is-filtered-doctrina { border-color: var(--tag-doctrina-border); box-shadow: 0 0 8px rgba(139,92,246,0.25); }
+.super-chip.is-filtered-doctrina .sc-filter.active { color: #c4b5fd; opacity: 0.9;}
+
+.super-chip.is-filtered-historia { border-color: var(--tag-historia-border); box-shadow: 0 0 8px rgba(16,185,129,0.25); }
+.super-chip.is-filtered-historia .sc-filter.active { color: #6ee7b7; opacity: 0.9;}
+
+/* Highlight Active state (Modifies the text background/color) */
+.super-chip.is-hl-biblia .sc-highlight { background: rgba(245,158,11, 0.15); color: #fcd34d; text-shadow: 0 0 8px rgba(245,158,11,0.4); }
+.super-chip.is-hl-doctrina .sc-highlight { background: rgba(139,92,246, 0.15); color: #c4b5fd; text-shadow: 0 0 8px rgba(139,92,246,0.4); }
+.super-chip.is-hl-historia .sc-highlight { background: rgba(16,185,129, 0.15); color: #6ee7b7; text-shadow: 0 0 8px rgba(16,185,129,0.4); }
+
+/* Legend Count Line */
+.tag-legend__count {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
+    min-height: 1em;
+}
+
+
+.print-tag-legend {
+    display: none; /* hidden on screen */
+}
+
+/* ── Card borders are now default unless highlighted ────────────── */
+
+
+/* ── Tag pills on each card ─────────────────────────────────── */
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.1rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.35s ease, margin 0.35s ease;
+}
+
+/* Pills reveal on hover, alongside excerpt */
+.timeline-card:hover .card-tags {
+    max-height: 40px;
+    opacity: 1;
+    margin-bottom: 0.3rem;
+}
+
+.card-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.card-tag--biblia {
+    background: var(--tag-biblia-bg);
+    color: var(--tag-biblia-color);
+}
+.card-tag--doctrina {
+    background: var(--tag-doctrina-bg);
+    color: var(--tag-doctrina-color);
+}
+.card-tag--historia {
+    background: var(--tag-historia-bg);
+    color: var(--tag-historia-color);
+}
+
+/* ── Filter dim / highlight transitions ─────────────────────── */
+
+/* Items that don't match the active filter are hidden completely */
+.timeline-item.tag-hidden {
+    display: none;
+}
+
+/* Matched items get a subtle glow/lift to stand out */
+.timeline-item.tag-highlighted-biblia .timeline-card {
+    box-shadow: 0 0 0 1px var(--tag-biblia-border),
+                0 10px 30px rgba(245, 158, 11, 0.35);
+    border-color: var(--tag-biblia-border);
+    transform: translateY(-3px) scale(1.01);
+}
+.timeline-item.tag-highlighted-doctrina .timeline-card {
+    box-shadow: 0 0 0 1px var(--tag-doctrina-border),
+                0 10px 30px rgba(139, 92, 246, 0.35);
+    border-color: var(--tag-doctrina-border);
+    transform: translateY(-3px) scale(1.01);
+}
+.timeline-item.tag-highlighted-historia .timeline-card {
+    box-shadow: 0 0 0 1px var(--tag-historia-border),
+                0 10px 30px rgba(16, 185, 129, 0.35);
+    border-color: var(--tag-historia-border);
+    transform: translateY(-3px) scale(1.01);
+}
+
+/* When a highlight is active, also show the tag pills immediately (no hover needed) */
+.timeline-item.tag-highlighted-biblia .card-tags,
+.timeline-item.tag-highlighted-doctrina .card-tags,
+.timeline-item.tag-highlighted-historia .card-tags {
+    max-height: 40px;
+    opacity: 1;
+    margin-bottom: 0.3rem;
+}
+
+/* Era sections with no visible items hide themselves */
+.era-section.era-empty {
+    display: none;
+}
+
+
+
+/* -------------------------------------- */
+/* Era Sections                           */
+/* -------------------------------------- */
+.era-section {
+    position: relative;
+    padding: 4rem 0;
+    /* No background set here — image is on the ::after pseudo-element
+       so it is strictly contained within the element's own bounds */
+    /* margin-bottom overlaps the border-bottom by 1px to prevent
+       the sub-pixel gap that appears between sections with fixed
+       parallax backgrounds */
+    margin-bottom: -1px;
+    isolation: isolate;
+}
+
+.era-section:nth-child(even) {
+    background-color: var(--primary-dark);
+}
+
+.era-section:nth-child(odd) {
+    background-color: #233140;
+}
+
+/* Background IMAGE layer — strictly contained within the section */
+.era-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center top;
+    background-attachment: scroll;
+    /* scroll prevents bleed between sections */
+    /* The actual background-image is set via inline style on the element
+       and copied here via CSS custom property */
+    background-image: var(--era-bg);
+    z-index: 0;
+}
+
+/* Dark OVERLAY layer — sits on top of the image */
+.era-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 32, 44, 0.91);
+    z-index: 1;
+}
+
+.era-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.era-title {
+    text-align: center;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: 0.5rem;
+}
+
+.era-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 3px;
+    background: var(--secondary);
+    border-radius: 2px;
+}
+
+/* -------------------------------------- */
+/* Timeline Structure                     */
+/* -------------------------------------- */
+.era-timeline {
+    position: relative;
+}
+
+.era-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+
+.timeline-item {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 50%;
+    position: relative;
+    margin: 0.8rem 0;
+    /* Reduced from 1.5rem for a more compact look */
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+}
+
+.timeline-item:nth-child(even) {
+    justify-content: flex-start;
+    padding-right: 0;
+    padding-left: 50%;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    right: calc(50% - 9px);
+    top: 22px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.8), 0 0 8px rgba(52, 152, 219, 0.5);
+    z-index: 2;
+    transition: var(--transition);
+}
+
+.timeline-item:nth-child(even)::after {
+    right: auto;
+    left: calc(50% - 9px);
+}
+
+/* -------------------------------------- */
+/* Card Design — Compact                  */
+/* -------------------------------------- */
+.timeline-card {
+    width: 90%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 0.65rem 1.2rem;
+    /* Reduced from 1rem 1.5rem */
+    box-shadow: var(--card-shadow);
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+    border-left: 4px solid var(--secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    /* Reduced from 0.3rem */
+}
+
+.timeline-item:nth-child(odd) .timeline-card {
+    margin-right: 1.5rem;
+}
+
+.timeline-item:nth-child(even) .timeline-card {
+    margin-left: 1.5rem;
+    border-left: none;
+    border-right: 4px solid var(--secondary);
+}
+
+.card-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+}
+
+.timeline-item:nth-child(even) .card-header {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.card-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.timeline-item:nth-child(even) .card-title {
+    text-align: right;
+}
+
+.card-excerpt {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.timeline-item:nth-child(even) .card-excerpt {
+    text-align: right;
+}
+
+.click-hint {
+    font-size: 0.75rem;
+    color: var(--secondary);
+    font-weight: 600;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.timeline-item:nth-child(even) .click-hint {
+    justify-content: flex-end;
+}
+
+/* Hidden in web view, shown when printing */
+.print-desc,
+.print-link-text {
+    display: none;
+}
+
+/* Card hover state — expands content */
+.timeline-card:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+}
+
+.timeline-card:hover .card-excerpt {
+    max-height: 100px;
+    opacity: 1;
+    margin-top: 0.3rem;
+}
+
+.timeline-card:hover .click-hint {
+    max-height: 20px;
+    opacity: 1;
+    margin-top: 0.3rem;
+}
+
+.timeline-card:hover::before {
+    content: '';
+    position: absolute;
+    top: 31px;
+    width: 15px;
+    height: 2px;
+    background: var(--secondary);
+}
+
+.timeline-item:nth-child(odd) .timeline-card:hover::before {
+    right: -15px;
+}
+
+.timeline-item:nth-child(even) .timeline-card:hover::before {
+    left: -15px;
+}
+
+.timeline-item:hover::after {
+    background-color: white;
+    box-shadow: 0 0 0 5px var(--secondary), 0 0 10px rgba(52, 152, 219, 0.6);
+    transform: scale(1.15);
+}
+
+/* -------------------------------------- */
+/* Modal Design                           */
+/* -------------------------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95) translateY(20px);
+    opacity: 0;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    width: 35px;
+    height: 35px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s;
+    border: none;
+    backdrop-filter: blur(5px);
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: rotate(90deg);
+}
+
+.modal-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 4px solid var(--secondary);
+    background-color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.modal-body {
+    padding: 2rem 2.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+@media (min-width: 768px) {
+    .modal-content {
+        flex-direction: row;
+        max-width: 900px;
+        min-height: 450px;
+    }
+    
+    .modal-image {
+        width: 45%;
+        height: auto;
+        min-height: 100%;
+        border-bottom: none;
+        border-right: 4px solid var(--secondary);
+    }
+    
+    .modal-body {
+        width: 55%;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.modal-header-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.modal-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+.modal-title {
+    font-size: 2rem;
+    color: var(--primary);
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+}
+
+.modal-description {
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* -------------------------------------- */
+/* Inline Links with Tooltip              */
+/* -------------------------------------- */
+.inline-link {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    border-bottom: 1px dotted var(--secondary);
+    transition: all 0.3s;
+    padding-bottom: 1px;
+}
+
+.inline-link:hover {
+    color: var(--secondary-hover);
+    border-bottom: 1px solid var(--secondary-hover);
+    background: rgba(52, 152, 219, 0.05);
+}
+
+.inline-link::after {
+    content: attr(data-preview);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0;
+    visibility: hidden;
+    background: var(--primary-dark);
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.inline-link::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--primary-dark) transparent transparent transparent;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.inline-link:hover::after,
+.inline-link:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* -------------------------------------- */
+/* Print Button                           */
+/* -------------------------------------- */
+.print-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    transition: var(--transition);
+}
+
+.print-btn:hover {
+    background: var(--primary);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* -------------------------------------- */
+/* Print Header & QR                      */
+/* -------------------------------------- */
+.print-header {
+    display: none;
+}
+
+.print-qr-container {
+    display: none;
+}
+
+/* -------------------------------------- */
+/* Footer                                 */
+/* -------------------------------------- */
+footer {
+    background: var(--primary-dark);
+    color: white;
+    text-align: center;
+    padding: 2rem 1.5rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* -------------------------------------- */
+/* Responsive                             */
+/* -------------------------------------- */
+@media (max-width: 768px) {
+    .era-title {
+        font-size: 2rem;
+    }
+
+    .era-timeline::before {
+        left: 24px;
+    }
+
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-left: 45px;
+        padding-right: 0;
+        margin: 0.7rem 0;
+    }
+
+    .timeline-item::after,
+    .timeline-item:nth-child(even)::after {
+        left: 24px;
+        right: auto;
+        transform: translateX(-50%);
+        width: 14px;
+        height: 14px;
+    }
+
+    .timeline-card,
+    .timeline-item:nth-child(odd) .timeline-card,
+    .timeline-item:nth-child(even) .timeline-card {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        border-left: 4px solid var(--secondary);
+        border-right: none;
+        padding: 0.55rem 0.9rem;
+    }
+
+    .timeline-item:nth-child(even) .card-header,
+    .timeline-item:nth-child(even) .card-title,
+    .timeline-item:nth-child(even) .card-excerpt,
+    .timeline-item:nth-child(even) .click-hint {
+        text-align: left;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .card-header {
+        gap: 0.5rem;
+    }
+
+    .card-year {
+        font-size: 1.3rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .modal-body {
+        padding: 1.2rem;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .jpp-header .nav-links {
+        display: none;
+    }
+}
+
+/* -------------------------------------- */
+/* Print Styles                           */
+/* -------------------------------------- */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 10pt !important;
+        font-family: Arial, sans-serif !important;
+        line-height: 1.3 !important;
+    }
+
+    header,
+    footer,
+    .page-hero,
+    .tag-legend,
+    .print-btn,
+    .click-hint,
+    .card-excerpt {
+        display: none !important;
+    }
+
+    /* Show the print-only category legend */
+    .print-tag-legend {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 1rem;
+        margin-bottom: 1rem;
+        padding: 0.6rem 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        page-break-inside: avoid;
+    }
+    .print-tag-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+        font-weight: 600;
+    }
+    .print-tag-item--biblia  { background: #fef3c7; color: #b45309; }
+    .print-tag-item--doctrina { background: #ede9fe; color: #6d28d9; }
+    .print-tag-item--historia { background: #d1fae5; color: #065f46; }
+
+    /* Always show card-tags pills in print inline with title */
+    .card-tags {
+        display: inline-flex !important;
+        align-items: center;
+        max-height: none !important;
+        opacity: 1 !important;
+        margin-bottom: 1mm !important;
+        margin-left: 10px !important;
+        vertical-align: middle;
+    }
+
+    .print-header {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5mm;
+        padding-bottom: 2mm;
+        border-bottom: 1px solid #333;
+    }
+
+    .print-header-text {
+        text-align: left;
+    }
+
+    .print-header h1 {
+        font-family: 'Playfair Display', serif;
+        color: black !important;
+        font-size: 18pt !important;
+        margin: 0;
+    }
+
+    .print-header p {
+        font-size: 11pt !important;
+        color: #444 !important;
+        margin-top: 2px;
+    }
+
+    .print-qr-container {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        font-size: 8pt !important;
+        color: #555;
+    }
+
+    .print-qr-container img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 2px;
+    }
+
+    .era-section {
+        background: none !important;
+        padding: 0 !important;
+        margin: 0 0 5mm 0 !important;
+        border: none !important;
+        page-break-inside: auto;
+    }
+
+    .era-section::before {
+        display: none !important;
+    }
+
+    .era-title {
+        color: black !important;
+        text-shadow: none !important;
+        margin-bottom: 3mm !important;
+        padding-bottom: 1mm !important;
+        font-size: 14pt !important;
+        font-weight: bold;
+        text-align: left !important;
+        left: 0 !important;
+        transform: none !important;
+        display: block !important;
+        border-bottom: 2px solid #3498db;
+        page-break-after: avoid;
+    }
+
+    .era-title::after {
+        display: none !important;
+    }
+
+    .era-timeline {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .era-timeline::before {
+        display: none !important;
+    }
+
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 0 4mm 0 !important;
+        transform: none !important;
+        opacity: 1 !important;
+        page-break-inside: avoid;
+    }
+
+    /* Hide dynamically filtered items from print */
+    .timeline-item.tag-hidden,
+    .era-section.era-empty {
+        display: none !important;
+    }
+
+    .timeline-item::after {
+        display: none !important;
+    }
+
+    .timeline-card,
+    .timeline-item:nth-child(odd) .timeline-card,
+    .timeline-item:nth-child(even) .timeline-card {
+        width: 100% !important;
+        box-shadow: none !important;
+        background: white !important;
+        border: none !important;
+        border-left: 3px solid #3498db !important;
+        padding: 1mm 3mm !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        backdrop-filter: none !important;
+    }
+
+    .card-header,
+    .timeline-item:nth-child(even) .card-header {
+        display: inline-block !important;
+        margin-bottom: 1mm !important;
+    }
+
+    .card-year {
+        font-size: 11pt !important;
+        color: #3498db !important;
+        font-weight: bold !important;
+        display: inline-block;
+        width: 35mm;
+        margin-right: 0 !important;
+    }
+
+    .card-title,
+    .timeline-item:nth-child(even) .card-title {
+        display: inline-block;
+        text-align: left !important;
+        color: black !important;
+        font-size: 11pt !important;
+        font-weight: bold !important;
+    }
+
+    .print-desc {
+        display: block !important;
+        font-size: 9pt !important;
+        color: #222 !important;
+        margin: 0 !important;
+        text-align: justify;
+        line-height: 1.25 !important;
+    }
+
+    .print-desc a {
+        color: #333 !important;
+        text-decoration: underline !important;
+    }
+
+    .modal-overlay {
+        display: none !important;
+    }
+}

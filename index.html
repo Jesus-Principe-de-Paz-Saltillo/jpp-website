@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión Jesús Príncipe de Paz</title>
     <link rel="icon" href="logo.png" type="image/png">
+    <!-- Shared design system -->
+    <link rel="stylesheet" href="styles/shared.css">
     <style>
         * {
             margin: 0;
@@ -19,16 +21,7 @@
             color: #333;
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        /* Header — now handled by shared.css .jpp-header */
 
         nav {
             max-width: 1200px;
@@ -45,12 +38,12 @@
             gap: 1rem;
         }
 
-        .logo {
-            height: 50px;
-            width: auto;
+        /* Override .logo size for index page if needed */
+        .jpp-header .logo {
+            height: 45px;
         }
 
-        .church-name h1 {
+        .jpp-header .church-name h1 {
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -155,9 +148,9 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-                url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1600&h=600&fit=crop') center/cover;
-            height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+                url('resources/Banner Mision Bautista JPP.png') center/cover no-repeat;
+            height: 420px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -334,19 +327,36 @@
             color: white;
         }
 
-        .footer-social {
+        .footer-social-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-sections {
+            display: flex;
+            gap: 5rem;
+            align-items: flex-start;
+            justify-content: center;
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .footer-sections {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+        }
+
+        .footer-social, .footer-portal {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1rem;
-        }
-
-        .footer-social-label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.5);
-            font-weight: 600;
         }
 
         .footer-social-icons {
@@ -380,10 +390,19 @@
         }
 
         .footer-social-icons a:hover {
+            transform: translateY(-3px);
+        }
+
+        #footer-social-facebook:hover {
             background: #1877f2;
             border-color: #1877f2;
-            transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+        }
+
+        #footer-social-members:hover {
+            background: #2c3e50;
+            border-color: #2c3e50;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         .footer-social-icons a svg {
@@ -391,6 +410,24 @@
             height: 20px;
             fill: white;
             transition: transform 0.3s ease;
+        }
+
+        .shield-base {
+            fill: white;
+            transition: all 0.3s ease;
+        }
+
+        .m-path {
+            stroke: #2c3e50;
+            transition: all 0.3s ease;
+        }
+
+        #footer-social-members:hover .shield-base {
+            fill: rgba(255, 255, 255, 0.2);
+        }
+
+        #footer-social-members:hover .m-path {
+            stroke: white;
         }
 
         .footer-social-icons a:hover svg {
@@ -554,14 +591,14 @@
 
 <body>
     <!-- Header -->
-    <header>
+    <header class="jpp-header">
         <nav>
-            <div class="logo-container">
+            <a href="#inicio" class="logo-container">
                 <img src="logo.png" alt="logo" class="logo">
                 <div class="church-name">
                     <h1>Misión Bautista Jesús Príncipe de Paz</h1>
                 </div>
-            </div>
+            </a>
             <button class="hamburger" id="hamburger-btn" aria-label="Menú">
                 <span></span>
                 <span></span>
@@ -682,17 +719,32 @@
                     <p>Andrómeda 436, Cd las Torres, 25110 Saltillo, Coahuila</p>
                 </div>
 
-                <div class="footer-social">
-                    <span class="footer-social-label">Síguenos</span>
-                    <div class="footer-social-icons">
-                        <a href="https://www.facebook.com/profile.php?id=100066764123458" target="_blank"
-                            rel="noopener noreferrer" aria-label="Facebook" id="footer-social-facebook">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                            </svg>
-                        </a>
-                        <!-- Más redes aquí -->
+                <div class="footer-sections">
+                    <div class="footer-social">
+                        <span class="footer-social-label">Síguenos</span>
+                        <div class="footer-social-icons">
+                            <a href="https://www.facebook.com/profile.php?id=100066764123458" target="_blank"
+                                rel="noopener noreferrer" aria-label="Facebook" id="footer-social-facebook">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-portal">
+                        <span class="footer-social-label">Más</span>
+                        <div class="footer-social-icons">
+                            <a href="miembros/index.html" target="_blank" rel="noopener noreferrer" aria-label="Portal de Miembros" id="footer-social-members">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"
+                                        class="shield-base" />
+                                    <path d="M9 15V9l3 3 3-3v6" fill="none" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="m-path" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

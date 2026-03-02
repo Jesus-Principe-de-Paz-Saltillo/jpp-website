@@ -7,7 +7,7 @@
     <title>Portal de Miembros — Misión Jesús Príncipe de Paz</title>
     <meta name="description"
         content="Portal de recursos y documentos para miembros y ministerios de la Misión Bautista Jesús Príncipe de Paz en Saltillo, Coahuila.">
-    <link rel="icon" href="../calendar_favicon.png" type="image/png">
+    <link rel="icon" href="../logo.png" type="image/png">
     <link rel="stylesheet" href="../styles/shared.css">
     <!-- Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
@@ -752,6 +752,10 @@
                 <span class="material-icons-round">diversity_3</span>
                 <span>Uniones</span>
             </button>
+            <button class="filter-tab" data-category="estudio" onclick="setFilter(this)">
+                <span class="material-icons-round">school</span>
+                <span>Estudio</span>
+            </button>
 
         </div>
     </div>
@@ -951,6 +955,37 @@
                 <span class="material-icons-round">hourglass_empty</span>
                 <p>Aún no hay recursos disponibles para esta unión. Los documentos se irán agregando conforme se
                     generen.</p>
+            </div>
+        </div>
+
+        <!-- ========== RECURSOS DE ESTUDIO ========== -->
+        <div class="ministry-section" data-category="estudio"
+            data-keywords="estudio historia reforma biblia linea tiempo iglesia teologia protestantismo">
+            <div class="ministry-header">
+                <div class="ministry-icon indigo">
+                    <span class="material-icons-round">menu_book</span>
+                </div>
+                <div class="ministry-title-group">
+                    <h2>Recursos de Estudio</h2>
+                    <p>Materiales educativos, históricos y doctrinales para el crecimiento espiritual</p>
+                </div>
+            </div>
+            <div class="resources-grid">
+                <a href="recursos/estudio/historia.html" class="resource-card" target="_blank"
+                    rel="noopener noreferrer">
+                    <div class="resource-card-icon file-link" style="background:#e8eaf6;">
+                        <span class="material-icons-round" style="color:#3f51b5;">timeline</span>
+                    </div>
+                    <div class="resource-card-info">
+                        <h3>Línea del Tiempo Histórica</h3>
+                        <p>Hitos de la Iglesia, la Reforma Protestante y la transmisión de la Biblia a través de los
+                            siglos</p>
+                        <span class="resource-tag tag-link">Página Interactiva</span>
+                    </div>
+                    <div class="resource-card-arrow">
+                        <span class="material-icons-round">chevron_right</span>
+                    </div>
+                </a>
             </div>
         </div>
 
