@@ -205,6 +205,113 @@ body {
     padding: 0 var(--space-xl);
 }
 
+/* ---- Standard Page Hero / Banner ─────────────────────────────
+   Apply this class to any sub-page's hero/title section to keep
+   banner height consistent across the entire site.
+   Reference: miembros/index.html .members-hero (padding: 4rem 0 3rem)
+
+   Usage:
+     <section class="page-hero">
+       <div class="container hero-inner">
+         <h1>Page Title</h1>
+         <p>Subtitle text</p>
+       </div>
+     </section>
+   ───────────────────────────────────────────────────────────── */
+.page-hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #1a3a5c 50%, var(--color-primary-light) 100%);
+    padding: 4rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+/* Decorative radial glow — top right */
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(var(--color-accent-rgb), 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Decorative radial glow — bottom left */
+.page-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(134, 164, 193, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.page-hero .hero-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.page-hero .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.25rem;
+}
+
+.page-hero h1 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+    line-height: 1.15;
+    color: white;
+}
+
+.page-hero p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: var(--font-size-lg);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .page-hero {
+        padding: 3rem 0 2.5rem;
+    }
+
+    .page-hero h1 {
+        font-size: 2rem;
+    }
+
+    .page-hero p {
+        font-size: var(--font-size-base);
+    }
+}
+
+@media (max-width: 480px) {
+    .page-hero h1 {
+        font-size: 1.6rem;
+    }
+}
+
 .section-title {
     font-size: var(--font-size-3xl);
     font-weight: 700;

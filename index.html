@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión Jesús Príncipe de Paz</title>
     <link rel="icon" href="logo.png" type="image/png">
+    <!-- Shared design system -->
+    <link rel="stylesheet" href="styles/shared.css">
     <style>
         * {
             margin: 0;
@@ -19,16 +21,7 @@
             color: #333;
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        /* Header — now handled by shared.css .jpp-header */
 
         nav {
             max-width: 1200px;
@@ -45,12 +38,12 @@
             gap: 1rem;
         }
 
-        .logo {
-            height: 50px;
-            width: auto;
+        /* Override .logo size for index page if needed */
+        .jpp-header .logo {
+            height: 45px;
         }
 
-        .church-name h1 {
+        .jpp-header .church-name h1 {
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -155,9 +148,9 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-                url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1600&h=600&fit=crop') center/cover;
-            height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+                url('resources/Banner Mision Bautista JPP.png') center/cover no-repeat;
+            height: 420px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -554,14 +547,14 @@
 
 <body>
     <!-- Header -->
-    <header>
+    <header class="jpp-header">
         <nav>
-            <div class="logo-container">
+            <a href="#inicio" class="logo-container">
                 <img src="logo.png" alt="logo" class="logo">
                 <div class="church-name">
                     <h1>Misión Bautista Jesús Príncipe de Paz</h1>
                 </div>
-            </div>
+            </a>
             <button class="hamburger" id="hamburger-btn" aria-label="Menú">
                 <span></span>
                 <span></span>
