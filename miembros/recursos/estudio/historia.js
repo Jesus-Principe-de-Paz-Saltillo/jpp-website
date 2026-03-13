@@ -38,6 +38,20 @@ const TAGS = {
 /** @type {Array<{name: string, bgImage: string, events: Array}>} */
 const eras = [
     {
+        name: "Iglesia Antigua y Edad Media",
+        bgImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/The_Trail_of_Blood.jpg/1920px-The_Trail_of_Blood.jpg",
+        events: [
+            {
+                year: "382 – 405 d.C.",
+                title: "La Vulgata de Jerónimo",
+                tags: ['biblia', 'historia'],
+                shortDesc: "Jerónimo de Estridón traduce la Biblia al latín por encargo de la Iglesia Católica.",
+                fullDesc: "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Amiatinus_Maiestas_Domini.jpg/960px-Amiatinus_Maiestas_Domini.jpg' class='modal-inline-img' alt='Maestà del Señor en el Codex Amiatinus' title='El Codex Amiatinus, escrito basándose en la Vulgata'>Por encargo del Papa Dámaso I de la <strong>Iglesia Católica</strong>, <a href='https://es.wikipedia.org/wiki/Jer%C3%B3nimo_(santo)' target='_blank' class='inline-link' data-preview='Traductor de la obra'>Jerónimo de Estridón</a> comenzó a traducir la Biblia al latín común (vulgar), dando lugar a la <a href='https://es.wikipedia.org/wiki/Vulgata' target='_blank' class='inline-link' data-preview='Conoce más de la Vulgata Latina'>Vulgata Latina</a>. Para el Antiguo Testamento, Jerónimo dejó de lado la Septuaginta y tradujo directamente desde los <strong>textos en hebreo</strong>. Sin embargo, para revisar el Nuevo Testamento, se basó en manuscritos de la familia alejandrina, como el <strong>Códice Vaticano</strong> y el <strong>Códice Sinaítico</strong> (textos que hoy en día conforman la base del <strong>Texto Crítico</strong>).<br><br>La Vulgata se afianzó como el texto oficial de uso eclesiástico en occidente durante la Edad Media. La ilustración interior muestra el <a href='https://es.wikipedia.org/wiki/Codex_Amiatinus' target='_blank' class='inline-link' data-preview='Códice completo más antiguo'>Codex Amiatinus</a> (siglo VIII), el manuscrito completo más antiguo que sobrevive como copia de esta traducción.",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/D%C3%BCrer-Hieronymus-im-Geh%C3%A4us.jpg/1280px-D%C3%BCrer-Hieronymus-im-Geh%C3%A4us.jpg"
+            }
+        ]
+    },
+    {
         name: "Renacimiento y Pre-Reforma",
         bgImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/View_of_Santa_Maria_del_Fiore_in_Florence.jpg/1280px-View_of_Santa_Maria_del_Fiore_in_Florence.jpg",
         events: [
